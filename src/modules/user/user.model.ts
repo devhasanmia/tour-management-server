@@ -22,7 +22,8 @@ const userSchema = new Schema<IUser>({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: { type: String },
     role: {
