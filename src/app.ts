@@ -12,6 +12,8 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+
+
 app.use(globalErrorHandler)
 app.use(notFound)
 

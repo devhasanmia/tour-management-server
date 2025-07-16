@@ -1,3 +1,4 @@
+import catchAsync from "../../utils/catchAsync";
 import { IUser } from "./user.interface";
 import User from "./user.model";
 
@@ -10,6 +11,12 @@ const createUser = async (payload: Partial<IUser>) => {
     return user
 }
 
+const getAllUser = async () => {
+    const user = await User.find();
+    return user
+}
+
 export const UserServices = {
-    createUser
+    createUser,
+    getAllUser
 }
