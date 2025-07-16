@@ -1,4 +1,3 @@
-import catchAsync from "../../utils/catchAsync";
 import { IUser } from "./user.interface";
 import User from "./user.model";
 
@@ -12,8 +11,14 @@ const createUser = async (payload: Partial<IUser>) => {
 }
 
 const getAllUser = async () => {
-    const user = await User.find();
-    return user
+    const result = await User.find();
+    const total: number = await User.countDocuments();
+    return {
+        meta: {
+            total
+        },
+        result
+    }
 }
 
 export const UserServices = {
