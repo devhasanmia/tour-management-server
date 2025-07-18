@@ -3,7 +3,9 @@ import bcrypt from "bcryptjs";
 import { IUser } from "../user/user.interface";
 import User from "../user/user.model";
 import AppError from "../../errorHandler/AppError";
-import jwt from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
+import { generateToken } from "../../utils/jwt";
+import config from "../../config";
 const credentialsLogin = async (payload: Partial<IUser>) => {
     const { email, password } = payload;
     if (!email || !password) {
@@ -23,7 +25,7 @@ const credentialsLogin = async (payload: Partial<IUser>) => {
         email: user.email,
         role: user.role
     }
-    const accessToken = jwt.sign(jwtPayload, "secret", { expiresIn: "1d" })
+    const accessToken = generateToken(jwtPayload as JwtPayload, config.jwt.secret, config.jwt.expires_in)
     return {
         email: user.email,
         accessToken

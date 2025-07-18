@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import app from "./app";
 import config from "./config";
 
-const PORT = process.env.PORT
+const PORT = config.app.port
 let server: ReturnType<typeof app.listen> | null = null;
 
 // Handle uncaught synchronous exceptions
@@ -14,7 +14,7 @@ process.on("uncaughtException", (err) => {
 // Main server startup
 async function main() {
   try {
-    await mongoose.connect(config.db as string);
+    await mongoose.connect(config.database.uri as string);
     console.log("✅ Database connected successfully");
 
     server = app.listen(PORT, () => {
