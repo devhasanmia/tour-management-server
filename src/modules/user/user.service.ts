@@ -10,7 +10,6 @@ const createUser = async (payload: Partial<IUser>) => {
         throw new AppError(httpStatus.BAD_REQUEST, "User Already Exist")
     }
     const hashPassword = await bcrypt.hash(password as string, 10);
-
     const authProvider: IAuthProvider = { provider: "credentials", providerid: email as string }
     const user = await User.create({
         email,
