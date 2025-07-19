@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import app from "./app";
 import config from "./config";
+import { seedSuperAdmin } from "./utils/seedSuperAdmin";
 
 const PORT = config.app.port
 let server: ReturnType<typeof app.listen> | null = null;
@@ -61,4 +62,8 @@ process.on("unhandledRejection", (reason, promise) => {
 process.on("SIGINT", shutdown);
 process.on("SIGTERM", shutdown);
 
-main();
+
+(async () => {
+  await main();
+  await seedSuperAdmin();
+})();

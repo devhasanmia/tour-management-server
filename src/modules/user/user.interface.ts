@@ -26,11 +26,11 @@ export interface IUser {
     email: string;
     password?: string;
     phone?: string;
-    picture: string;
+    picture?: string;
     address?: string;
     isDeleted?: string;
     isActive?: IsActive;
-    isVerified?: string;
+    isVerified?: boolean;
     role: Role;
     auths: IAuthProvider[];
     bookings?: Types.ObjectId[];
