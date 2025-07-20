@@ -53,7 +53,7 @@ const config: IConfig = {
   },
    superAdmin: {
     name: process.env.SUPER_ADMIN_NAME || "SUPER ADMIN",
-    email: process.env.SUPER_ADMIN_EMAIL || "superadmin@example.com",
+    email: process.env.SUPER_ADMIN_EMAIL || "superadmin@tour-management.com",
     password: process.env.SUPER_ADMIN_PASSWORD || "12345678",
     role: process.env.SUPER_ADMIN_ROLE || "SUPER_ADMIN",
   },

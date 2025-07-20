@@ -9,7 +9,6 @@ export const seedSuperAdmin = async () => {
         if (isSuperAdminExist) {
             return
         }
-        console.log("Tring to Createing Super Admin");
         const authProvider: IAuthProvider = {
             provider: "credentials",
             providerid: config.superAdmin.email
