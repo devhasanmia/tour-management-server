@@ -6,7 +6,7 @@ import AppError from "../../errorHandler/AppError";
 import { JwtPayload } from "jsonwebtoken";
 import { generateToken, verifyToken } from "../../utils/jwt";
 import config from "../../config";
-import { createUserToken } from "../../utils/userToken";
+import { createUserToken, refreshAccessToken } from "../../utils/userToken";
 const credentialsLogin = async (payload: Partial<IUser>) => {
   const { email, password } = payload;
   if (!email || !password) {
@@ -38,36 +38,9 @@ const credentialsLogin = async (payload: Partial<IUser>) => {
   };
 };
 const getNewAccessToken = async (refreshToken: string) => {
-  const varifiedToken = verifyToken(
-    refreshToken,
-    config.jwt.refresh_secret
-  ) as JwtPayload;
-  const isUserExist = await User.findOne({ email: varifiedToken.email });
-
-  if (!isUserExist) {
-    throw new AppError(httpStatus.BAD_REQUEST, "User does Not Exist");
-  }
-  if (isUserExist.isActive === IsActive.SUSPENDED) {
-    throw new AppError(
-      httpStatus.BAD_REQUEST,
-      `User is ${isUserExist.isActive}`
-    );
-  }
-  if (isUserExist.isDeleted) {
-    throw new AppError(httpStatus.BAD_REQUEST, "User is Deleted");
-  }
-  const jwtPayload = {
-    userId: isUserExist._id,
-    email: isUserExist.email,
-    role: isUserExist.role,
-  };
-  const accessToken = generateToken(
-    jwtPayload,
-    config.jwt.secret,
-    config.jwt.expires_in
-  );
+  const newAccessToken = await refreshAccessToken(refreshToken)
   return {
-    accessToken: accessToken,
+    accessToken: newAccessToken,
   };
 };
 

@@ -17,7 +17,6 @@ export const checkAuth = (...authRoles: string[]) => async (req: Request, res: R
         req.user = verifiedToken 
         next()
     } catch (error) {
-        console.log("jwt error", error);
         next(error)
     }
 }
