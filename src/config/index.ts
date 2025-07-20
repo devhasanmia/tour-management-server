@@ -46,7 +46,7 @@ const config: IConfig = {
     secret: process.env.JWT_SECRET || "",
     expires_in: process.env.JWT_EXPIRES_IN || "1h",
     refresh_secret: process.env.JWT_REFRESH_SECRET || "",
-    refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
+    refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN || "30d",
   },
   bcrypt: {
     salt_rounds: parseInt(process.env.BCRYPT_SALT_ROUNDS || "10", 10),
